@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.succlz123.spi'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "org.succlz123.spi.app"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["spi_name": "AppModule"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':app-test')
+
+    implementation project(':lib')
+    annotationProcessor project(':processor')
+
+    implementation "androidx.annotation:annotation:1.1.0"
+}
